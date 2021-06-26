@@ -89,9 +89,17 @@ Enter 0, 1, or 2: `);
 return scoringAlgorithms[userInput];
 }
 
-function transform() {};
+function transform(oldPointStructure) {
+  let newObject = {}
+  for (point in oldPointStructure) {
+    for (i=0; i <oldPointStructure[point].length; i++) {
+      newObject[oldPointStructure[point][i].toLowerCase()] = Number(point)
+    }
+  }
+  return newObject;
+};
 
-let newPointStructure;
+let newPointStructure = transform(oldPointStructure);
 
 function runProgram() {
   let inputWord = initialPrompt();
