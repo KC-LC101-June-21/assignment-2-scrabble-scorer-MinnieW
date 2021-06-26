@@ -37,7 +37,7 @@ function initialPrompt() {
   return word
 };
 
-function simpleScore(word){
+let simpleScore = function simpleScore(word){
   let simplePoints = 0;
   for (i=0; i <word.length; i++) {
     simplePoints += 1
@@ -45,7 +45,7 @@ function simpleScore(word){
   return simplePoints;
 }
 
-function vowelBonusScore(word){
+let vowelBonusScore = function vowelBonusScore(word){
   let wordLowerCase = word.toLowerCase()
   let vowelPoints = 0
   for (i=0; i < word.length; i++){
@@ -60,19 +60,19 @@ function vowelBonusScore(word){
 let simpleScoreObject = {
   name: "Simple Score",
   description: "Each letter is worth 1 point.",
-  scoringFunction: "simpleScore"
+  scoringFunction: simpleScore
 }
 
 let bonusVowelsObject = {
   name: "Bonus Vowels",
   description: "Vowels are 3 pts, consonants are 1 pt.",
-  scoringFunction: "vowelBonusScore"
+  scoringFunction: vowelBonusScore
 }
 
 let scrabbleObject = {
   name: "Scrabble",
   description: "The traditional scoring algorithm.",
-  scoringFunction: "oldScrabbleScorer"
+  scoringFunction: oldScrabbleScorer
 }
 
 let scrabbleScore;
@@ -104,13 +104,14 @@ let newPointStructure = transform(oldPointStructure);
 function runProgram() {
   let inputWord = initialPrompt();
   let scoringFunctionToBeUsed = scorerPrompt()
-  if (scoringFunctionToBeUsed.name === "Simple Score") {
-    console.log(`Score for ${inputWord}: ${simpleScore(inputWord)}`);
-  } else if (scoringFunctionToBeUsed.name === "Bonus Vowels") {
-    console.log(`Score for ${inputWord}: ${vowelBonusScore(inputWord)}`);
-  } else if (scoringFunctionToBeUsed.name === "Scrabble") {
-    console.log(`Score for ${inputWord}: ${oldScrabbleScorer(inputWord)}`);
-  }
+  console.log(scoringFunctionToBeUsed.scoringFunction(inputWord))
+  // if (scoringFunctionToBeUsed.name === "Simple Score") {
+  //   console.log(`Score for ${inputWord}: ${simpleScore(inputWord)}`);
+  // } else if (scoringFunctionToBeUsed.name === "Bonus Vowels") {
+  //   console.log(`Score for ${inputWord}: ${vowelBonusScore(inputWord)}`);
+  // } else if (scoringFunctionToBeUsed.name === "Scrabble") {
+  //   console.log(`Score for ${inputWord}: ${oldScrabbleScorer(inputWord)}`);
+  // }
   //console.log(oldScrabbleScorer(inputWord));
   //console.log(simpleScore(inputWord));
   //console.log(vowelBonusScore(inputWord));
